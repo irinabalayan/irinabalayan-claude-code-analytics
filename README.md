@@ -4,31 +4,45 @@ This project processes and analyzes telemetry logs to extract insights about API
 
 ## Folder Structure
 
-draft/
+# Claude Code Analytics Platform
+
+This project processes and analyzes telemetry logs to extract insights about API requests and tool usage. It includes data ingestion, cleaning, analysis, anomaly detection, and a Streamlit dashboard for visualization.
+
+## Folder Structure
+
+platform/
 ├── src/
-│   ├── ingest.py # Handles data loading
-│   ├── process.py # Cleans and preprocesses the data
-│   ├── analyze.py # Performs analysis on the data
-│   ├── dashboard.py # Creates visualizations for the dashboard
-│   └── database.py # Manages database interactions
+│   ├── ingest.py           # Handles data loading
+│   ├── process.py          # Cleans and preprocesses the data
+│   ├── analyze.py          # Performs analysis, anomaly detection, prediction
+│   ├── dashboard.py        # Creates visualizations for the dashboard
+│   └── database.py         # Manages database interactions
 ├── data/
-│   ├── raw/ # Contains raw telemetry logs (e.g., telemetry_logs.jsonl)
-│   └── processed/ # Placeholder for processed data
-├── output/
-│   ├── llm_usage_summary.csv # Generated LLM usage log
-│   ├── predicted_usage.csv # Predicted usage data
-│   ├── api_tokens.png # Visualization of API token usage
-│   ├── tool_success.png # Visualization of tool success rates
-│   └── trend.png # Visualization of trends
-├── dashboard/
-│   └── app.py # Entry point for the dashboard application
-├── db/ # Placeholder for database-related files
-└── main.py # Main script to run the analysis and plots
+│   ├── raw/                # Raw telemetry logs (e.g., telemetry_logs.jsonl)
+│   └── processed/          # Placeholder for processed data
+├── output/                 # Analysis results and visualizations
+│   ├── anomaly_detection.csv
+│   ├── predicted_usage.csv
+│   ├── api_tokens.png
+│   ├── tool_success.png
+│   └── trend.png
+├── db/                     # SQLite database files
+├── main.py                 # Main script to run analysis and dashboard
+├── README.md
+└── requirements.txt
 
 resources/
-├── generate_fake_data.py # Script for generating fake data
+├── generate_fake_data.py    # Script for generating fake data
 
-venv/ # Virtual environment for managing dependencies
+venv/                         # Virtual environment for dependencies
+
+## Features
+
+- Dashboard visualizing token usage trends and anomalies
+- Token usage prediction for future days
+- Cost analysis by role/practice
+- Session length and peak hour analysis
+- Tool usage statistics
 
 ## Requirements
 
@@ -37,14 +51,21 @@ venv/ # Virtual environment for managing dependencies
   - pandas
   - matplotlib
   - seaborn
-  - flask
+  - streamlit
+  - scikit-learn
+  - numpy
+
+Install dependencies via:
+
+```bash
+pip install -r requirements.txt
 
 ## Setup
 
 1. Clone the repository:
    ```bash
-   git clone <your-repo-link>
-   cd draft
+   git clone https://github.com/irinabalayan/irinabalayan-claude-code-analytics.git
+   cd irinabalayan-claude-code-analytics
    ```
 2. Create and activate a virtual environment:
    ```bash
@@ -61,28 +82,25 @@ venv/ # Virtual environment for managing dependencies
 1. Place raw telemetry logs in the `data/raw/` directory.
 2. Run the main script:
    ```bash
-   python main.py
+   streamlit run main.py
    ```
 3. Outputs will be saved in the `output/` directory.
-4. To launch the dashboard:
-   ```bash
-   python dashboard/app.py
-   ```
 
 ## Outputs
+Outputs will be saved in the output/ directory.
 
-- **LLM Usage Summary**: A CSV file summarizing token usage and costs, saved as `output/llm_usage_summary.csv`.
-- **Predicted Usage**: A CSV file with predicted usage data, saved as `output/predicted_usage.csv`.
-- **Visualizations**:
-  - `api_tokens.png`: Bar plot of API token usage.
-  - `tool_success.png`: Bar plot of tool success rates.
-  - `trend.png`: Line plot of trends over time.
-
+- **Anomaly Detection:** output/anomaly_detection.csv
+- **Predicted Usage:** output/predicted_usage.csv
+- **Visualizations:**
+  - `api_tokens.png:` API token usage bar plot
+  - `tool_success.png:` Tool success rates bar plot
+  - `trend.png:` Line plot of token trends over time
+ 
 ## Notes
 
 - Ensure the `data/raw/telemetry_logs.jsonl` file exists before running the script.
 - Modify the scripts in `src/` as needed to customize the analysis.
-- The dashboard requires Flask to be installed.
+- The repository contains large files (telemetry_logs.jsonl > 50MB). Consider using Git LFS for large datasets.
 
 ## License
 
